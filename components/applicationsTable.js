@@ -59,9 +59,9 @@ function SubmittedApplicationsTable({ applications, onDelete }) {
               <Card key={request.physicianRequestId} className="applicationCard-color" style={{ width: '17rem', margin: '10px' }}>
                 <Card.Body>
                   <Card.Title key={request.physicianRequestId} />
-                  <Card.Text className="cell">NAME : {request.displayName}</Card.Text>
-                  <Card.Text className="cell"> NPI NUMBER : {request.npiNumber}</Card.Text>
-                  <Card.Text className="cell"> STATUS : {request.status}</Card.Text>
+                  <Card.Text className="cell">Name : {request.displayName}</Card.Text>
+                  <Card.Text className="cell"> NPI Number : {request.npiNumber}</Card.Text>
+                  <Card.Text className="cell"> Status : {request.status}</Card.Text>
                   <div>
                     {
                       user.isAdmin && request.status === 'Submitted' ? (

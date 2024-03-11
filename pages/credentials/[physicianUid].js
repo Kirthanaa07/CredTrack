@@ -8,6 +8,7 @@ import { deleteCredentialDb, getAllCredentialsForPhysicianDb } from '../../api/c
 import getAllCredentialTypes from '../../api/credentialTypeData';
 import CredentialForm from '../../components/form/addCredForm';
 import { getSinglePhysicianDb } from '../../api/physicianData';
+import { useAuth } from '../../utils/context/authContext';
 
 export default function ViewCredential() {
   const [show, setShow] = useState(false);
@@ -24,6 +25,7 @@ export default function ViewCredential() {
   const [physician, setPhysician] = useState({});
   const router = useRouter();
   const { physicianUid } = router.query;
+  const { user } = useAuth();
 
   const deleteThisCredential = (credentialDetail) => {
     if (window.confirm('Are you sure you want to delete this credential?')) {
@@ -79,17 +81,24 @@ export default function ViewCredential() {
                       ) : <></>}
                     </div>
                     <div className="d-flex flex-row gap-2">
-                      {credentialDetail.physicianCredential ? (
-                        <>
+                      {
+                        credentialDetail.physicianCredential ? (
                           <Button variant="outline-success" className="view-btn" onClick={() => { setCredentialImg(credentialDetail.physicianCredential.imageUrl); handleShowImg(); }}>
                             <i className="bi bi-eye-fill" />
                           </Button>
-                          <Button variant="outline-info" className="edit-btn" onClick={() => { setSelectedCred(credentialDetail); handleShow(); }}>
-                            <i className="bi bi-pencil-fill" />
-                          </Button>
-                          <Button variant="outline-danger" className="delete-btn" onClick={() => deleteThisCredential(credentialDetail)}><i className="bi bi-trash-fill" /></Button>
-                        </>
-                      ) : <>No Credential added</>}
+                        ) : <>No Credential Added</>
+                      }
+                      {
+                        credentialDetail.physicianCredential && (user.isPhysician || user.isAdmin) ? (
+                          <>
+                            <Button variant="outline-info" className="edit-btn" onClick={() => { setSelectedCred(credentialDetail); handleShow(); }}>
+                              <i className="bi bi-pencil-fill" />
+                            </Button>
+                            <Button variant="outline-danger" className="delete-btn" onClick={() => deleteThisCredential(credentialDetail)}><i className="bi bi-trash-fill" /></Button>
+                          </>
+                        ) : <></>
+                      }
+
                     </div>
                   </ListGroup.Item>
 
