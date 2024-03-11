@@ -45,8 +45,8 @@ function PhysiciansTable({ physicians, onUpdate }) {
                 <Image variant="top" src={physician.image} alt={physician.displayName} thumbnail style={{ height: '400px' }} />
                 <Card.Body>
                   <Card.Title>{physician.displayName}</Card.Title>
-                  <Card.Text>{physician.telephoneNumber}</Card.Text>
-                  <Card.Text>{physician.npiNumber}</Card.Text>
+                  <Card.Text><i className="bi bi-telephone-fill" /> {physician.telephoneNumber}</Card.Text>
+                  <Card.Text>NPI : {physician.npiNumber}</Card.Text>
                   <div className="card-btn">
                     <Button variant="outline-success" className="view-btn" onClick={() => viewPhysician(physician.uid)}> <i className="bi bi-eye-fill" /></Button>
                     {
